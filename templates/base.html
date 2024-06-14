@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Contact List</title>
+        <!--<link href="css/style.css" rel="stylesheet">-->
+        <script
+        src="https://unpkg.com/htmx.org@1.9.12"
+        integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+        crossorigin="anonymous"
+    ></script>
+    </head>
+    <body>
+        {% block create_contact %}
+        <form hx-post="/contacts" hx-target="body">
+            Name: <input type="text" name="name" placeholder="Enter here...">
+            Email: <input type="text" name="email" placeholder="Enter here...">
+            <button type="submit">Create contact</button>
+        </form>
+        {% endblock %}
+        <hr>
+        {% block contact_list %}
+        {% for c in Contacts %}
+            <div style="display: flex; flex-direction: column">
+                <label>
+                    Name: <span>{{ c.name }}</span>
+                </label>
+                <label>
+                    Email: <span>{{ c.email }}</span>
+                </label>
+            </div>
+        {% endfor %}
+        {% endblock %}
+    </body>
+</html>
