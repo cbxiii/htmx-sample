@@ -1,20 +1,11 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title></title>
-    <script
-      src="https://unpkg.com/htmx.org@1.9.12"
-      integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+{% extends "base.html" %}
+{% block content %}
+    <form hx-post="/contacts" hx-target="#contacts">
+        <label>Name:</label> <input type="text" name="name" placeholder="Enter here...">
+        <label>Email:</label> <input type="text" name="email" placeholder="Enter here...">
+        <button type="submit">Create contact</button>
+    </form>
+    <hr>
+    {% include "contact.html" %}
+{% endblock %}
 
-  <body>
-    <div id="count">
-        Count: {{ count }}
-    </div>
-    <button hx-swap="outerHTML" hx-target="#count" hx-post="/count">Count</button>
-  </body>
-</html>

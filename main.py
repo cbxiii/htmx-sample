@@ -1,21 +1,32 @@
-from flask import Flask, render_template, render_template_string
-from multiprocessing import Value
+from flask import Flask, render_template, request
+from dataclasses import dataclass
 
 app = Flask(__name__)
-counter = Value('i', 0)
 
+@dataclass
+class Contact:
+    name: str
+    email: str
+
+def newContact(name, email) -> Contact:
+    return Contact(name, email)
+
+Contacts: list[Contact] = [newContact("John", "jd@gmail.com"),
+                           newContact("Clara", "cd@gmail.com")]
 
 @app.route("/")
 def main():
-    return render_template("index.html", count=counter.value) 
+    return render_template("index.html", Contacts=Contacts) 
 
-@app.route("/count", methods=['GET', 'POST'])
+@app.route("/contacts", methods=['POST'])
 def process():
-    with counter.get_lock():
-        counter.value += 1
-        count = counter.value 
-    return render_template_string('<div id="count">Count: {{ count }}</div>', count=count) 
+    name = request.form.get("name")
+    email = request.form.get("email")
+    new_contact = newContact(name, email)
 
+    Contacts.append(new_contact)
+
+    return render_template("contact.html", Contacts=Contacts)
 
 # run app
 if __name__ == "__main__":

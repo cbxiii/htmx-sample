@@ -1,0 +1,11 @@
+{% block contacts %}
+    <div id="contacts" style="display: flex; flex-direction: column;">
+    {% for c in Contacts %}
+        <div style="margin-bottom: 10px;">
+            Name: <span>{{ c.name }}</span>
+            <br>
+            Email: <span>{{ c.email }}</span>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
