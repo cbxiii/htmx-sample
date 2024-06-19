@@ -1,11 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-    <form hx-post="/contacts" hx-target="#contacts">
-        <label>Name:</label> <input type="text" name="name" placeholder="Enter here...">
-        <label>Email:</label> <input type="text" name="email" placeholder="Enter here...">
-        <button type="submit">Create contact</button>
-    </form>
+    {% include "form.html" %}
     <hr>
-    {% include "contact.html" %}
+    {% include "contacts.html" %}
+    <script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+        document.body.addEventListener('htmx:beforeSwap', function(evt) {
+            if (evt.detail.xhr.status === 422) {
+                evt.detail.shouldSwap = true;
+                evt.detail.isError = false;
+            }
+        });
+    })
+    </script>
 {% endblock %}
 

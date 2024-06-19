@@ -1,0 +1,13 @@
+<div id="contacts" style="display: flex; flex-direction: column;">
+{% for c in contacts %}
+    <div id="contact-{{ c.id }}" style="margin-bottom: 10px;">
+        Name: <span>{{ c.name }}</span>
+        <br>
+        Email: <span>{{ c.email }}</span>
+        <button hx-delete="/contacts/{{ c.id }}"
+            hx-swap="outerHTML"
+            hx-target="#contacts"
+            id="button-del-contact" class="button-del-contact">Delete Contact</button>
+    </div>
+{% endfor %}
+</div>

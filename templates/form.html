@@ -1,0 +1,10 @@
+<form hx-swap="outerHTML" hx-post="/contacts" hx-target="#contacts">
+  <label>Name:</label>
+  <input type="text" name="name" placeholder="Enter here..." />
+  <label>Email:</label>
+  <input type="text" name="email" placeholder="Enter here..." />
+  {% if error %}
+    <div style="color: red">{{ error.description }}</div>
+  {% endif %}
+  <button type="submit">Create contact</button>
+</form>
